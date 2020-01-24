@@ -2,32 +2,32 @@
 #include<stdlib.h>
 #include<math.h>
 #include<string.h>
-#pragma warning(disable:4996)
+//#pragma warning(disable:4996)  //ç”¨äºwindowsçš„è°ƒè¯•
 
-char input_control[256];  //¶¨ÒåµÄÎÄ×ÖÊı×é£¬ÓÃÓÚ´¢´æÓÃ»§ÊäÈëµÄÃüÁî
-char keywords[10], input_var[244];  //·Ö±ğ´¢´æÓÃ»§µÄÃüÁî¹Ø¼ü×ÖÓëÃüÁîÊäÈëÖµ
-float function_input[244];  //¸¡µãĞÍÊı×é£¬ÓÃÓÚ´¢´æÓÃ»§ÊäÈëµÄº¯Êı
+char input_control[256];  //å®šä¹‰çš„æ–‡å­—æ•°ç»„ï¼Œç”¨äºå‚¨å­˜ç”¨æˆ·è¾“å…¥çš„å‘½ä»¤
+char keywords[10], input_var[244];  //åˆ†åˆ«å‚¨å­˜ç”¨æˆ·çš„å‘½ä»¤å…³é”®å­—ä¸å‘½ä»¤è¾“å…¥å€¼
+float function_input[244];  //æµ®ç‚¹å‹æ•°ç»„ï¼Œç”¨äºå‚¨å­˜ç”¨æˆ·è¾“å…¥çš„å‡½æ•°
 int gcx;
 
-int diff1(float *array_i, float *array_o, int igcx);  //ÇóÒ»½×µ¼º¯Êı£¬·µ»ØÕûÊıĞÍµÄµ¼º¯Êı½×Êı
-float beFunction(float *i_function, int igcx, float i_var);  //¼ÆËãÊäÈëº¯ÊıµÄÌØ¶¨Öµ£¬·µ»Øº¯ÊıµÄ½â
-int zeros_f(float *i_function, float *out_value, int igcx, float m, float n);  //ÇóÁãµãº¯Êı£¬·µ»ØÁãµã¸öÊı
-float dichotomy(float low, float high, float er);  //¶ş·Ö·¨Çó½âº¯Êı£¬·µ»ØÇóµÃµÄ½â
-int mono(float *i_dfunction, int idgcx, int low, int high);  //Çóµ¥µ÷Çø¼äº¯Êı
-int maxp(float *orgin_fun, int igcx, float *o_maxp, int low, int high);  //Çó¼«´óÖµº¯Êı£¬·µ»Ø¼«´óÖµ¸öÊı
-int minp(float *orgin_fun, int igcx, float *o_minp, int low, int high);  //Çó¼«Ğ¡Öµº¯Êı£¬·µ»Ø¼«Ğ¡Öµ¸öÊı
-int runALL(float *function_input, int igcx, float low, float high);  //½«ÊäÈëµÄº¯Êı½øĞĞÏêÏ¸·ÖÎö
-int reporter(float *function_input, int igcx, float low, float high);  //Éú³Éº¯ÊıµÄ·ÖÎöÎÄ¼ş²¢±£´æÎªTXT
-int mono_r(float *i_dfunction, int idgcx, int low, int high, FILE *o_char);  //½«º¯ÊıµÄµ¥µ÷Çø¼äĞ´ÈëTXT
-void reportFunction(float *array_s, int n, FILE *pFile);  //½«º¯ÊıµÄÊıÑ§±í´ïÊ½Ğ´ÈëTXTÎÄ¼şÖĞ
-void showFunction(float *array_s, int n);  //½«º¯ÊıµÄÊıÑ§±í´ïÊ½´òÓ¡ÔÚÆÁÄ»ÉÏ
-void inputA(char *array_a);  //Í¨¹ıÊäÈëº¯ÊıµÄÏµÊı½øĞĞº¯Êı´´½¨£¬ÒÔÊäÈëµÄÖµµÃ¸öÊıÈ·¶¨º¯ÊıµÄ½×Êı
-int syntaxPD(char *ipt, int len);  //Óï·¨ÅĞ¶Ïº¯Êı£¬È·¶¨ÓÃ»§ÊäÈëµÄÓï·¨ÊÇ·ñÕıÈ·
-void inistr(int sa);  //³õÊ¼»¯º¯Êı£¬ÓÃÓÚ³õÊ¼»¯´´½¨µÄÊı×é£¬Çå³ıÀ¬»ø´æ´¢Öµ
-void dropFunction();  //É¾³ıÓÃ»§ÒÑÊäÈëµÄº¯ÊıÖµ
-int plot(float *input_fun, int igcx, float low, float high, float err);  //»­Í¼º¯Êı£¬»­º¯ÊıµÄÍ¼Ïñ
+int diff1(float *array_i, float *array_o, int igcx);  //æ±‚ä¸€é˜¶å¯¼å‡½æ•°ï¼Œè¿”å›æ•´æ•°å‹çš„å¯¼å‡½æ•°é˜¶æ•°
+float beFunction(float *i_function, int igcx, float i_var);  //è®¡ç®—è¾“å…¥å‡½æ•°çš„ç‰¹å®šå€¼ï¼Œè¿”å›å‡½æ•°çš„è§£
+int zeros_f(float *i_function, float *out_value, int igcx, float m, float n);  //æ±‚é›¶ç‚¹å‡½æ•°ï¼Œè¿”å›é›¶ç‚¹ä¸ªæ•°
+float dichotomy(float low, float high, float er);  //äºŒåˆ†æ³•æ±‚è§£å‡½æ•°ï¼Œè¿”å›æ±‚å¾—çš„è§£
+int mono(float *i_dfunction, int idgcx, int low, int high);  //æ±‚å•è°ƒåŒºé—´å‡½æ•°
+int maxp(float *orgin_fun, int igcx, float *o_maxp, int low, int high);  //æ±‚æå¤§å€¼å‡½æ•°ï¼Œè¿”å›æå¤§å€¼ä¸ªæ•°
+int minp(float *orgin_fun, int igcx, float *o_minp, int low, int high);  //æ±‚æå°å€¼å‡½æ•°ï¼Œè¿”å›æå°å€¼ä¸ªæ•°
+int runALL(float *function_input, int igcx, float low, float high);  //å°†è¾“å…¥çš„å‡½æ•°è¿›è¡Œè¯¦ç»†åˆ†æ
+int reporter(float *function_input, int igcx, float low, float high);  //ç”Ÿæˆå‡½æ•°çš„åˆ†ææ–‡ä»¶å¹¶ä¿å­˜ä¸ºTXT
+int mono_r(float *i_dfunction, int idgcx, int low, int high, FILE *o_char);  //å°†å‡½æ•°çš„å•è°ƒåŒºé—´å†™å…¥TXT
+void reportFunction(float *array_s, int n, FILE *pFile);  //å°†å‡½æ•°çš„æ•°å­¦è¡¨è¾¾å¼å†™å…¥TXTæ–‡ä»¶ä¸­
+void showFunction(float *array_s, int n);  //å°†å‡½æ•°çš„æ•°å­¦è¡¨è¾¾å¼æ‰“å°åœ¨å±å¹•ä¸Š
+void inputA(char *array_a);  //é€šè¿‡è¾“å…¥å‡½æ•°çš„ç³»æ•°è¿›è¡Œå‡½æ•°åˆ›å»ºï¼Œä»¥è¾“å…¥çš„å€¼å¾—ä¸ªæ•°ç¡®å®šå‡½æ•°çš„é˜¶æ•°
+int syntaxPD(char *ipt, int len);  //è¯­æ³•åˆ¤æ–­å‡½æ•°ï¼Œç¡®å®šç”¨æˆ·è¾“å…¥çš„è¯­æ³•æ˜¯å¦æ­£ç¡®
+void inistr(int sa);  //åˆå§‹åŒ–å‡½æ•°ï¼Œç”¨äºåˆå§‹åŒ–åˆ›å»ºçš„æ•°ç»„ï¼Œæ¸…é™¤åƒåœ¾å­˜å‚¨å€¼
+void dropFunction();  //åˆ é™¤ç”¨æˆ·å·²è¾“å…¥çš„å‡½æ•°å€¼
+int plot(float *input_fun, int igcx, float low, float high, float err);  //ç”»å›¾å‡½æ•°ï¼Œç”»å‡½æ•°çš„å›¾åƒ
 
-int main()  //Ö÷³ÌĞò  
+int main()  //ä¸»ç¨‹åº  
 {
 	int jumpout = 0, strcd = 0,k=0,v=0;
 	int i,d2gcx=-1,jsc;
@@ -35,16 +35,16 @@ int main()  //Ö÷³ÌĞò
 	gcx = -1;
 	inistr(0);
 	dropFunction();
-	printf("»¶Ó­Ê¹ÓÃÑË¸î°æMATLAB\n´Ë³ÌĞò½öÓÃÓÚ¸ß½×º¯ÊıµÄ·ÖÎö¡£\n");
-	printf(">>ÇëÊäÈëÃüÁîÀ´Ö´ĞĞ\n");
+	printf("æ¬¢è¿ä½¿ç”¨é˜‰å‰²ç‰ˆMATLAB\næ­¤ç¨‹åºä»…ç”¨äºé«˜é˜¶å‡½æ•°çš„åˆ†æã€‚\n");
+	printf(">>è¯·è¾“å…¥å‘½ä»¤æ¥æ‰§è¡Œ\n");
 	printf("--------------------------------------\n");
 	while (jumpout==0)
 	{
 		printf(">>");
-		gets_s(input_control);
+		gets(input_control);  //windowsçš„è°ƒè¯•æ—¶ï¼Œgets->gets_s
 		strcd = strlen(input_control);
 		if (syntaxPD(input_control, strcd) == 0)
-			printf("·´À¡£ºÊäÈëµÄÓï·¨´íÎó¡£\n");
+			printf("åé¦ˆï¼šè¾“å…¥çš„è¯­æ³•é”™è¯¯ã€‚\n");
 		else
 		{
 			while (input_control[k++] != '(');
@@ -69,11 +69,11 @@ int main()  //Ö÷³ÌĞò
 			else if (strcmp(keywords, "inputA") == 0)  //finished
 			{
 				if (input_var[0] == 0)
-					printf("·´À¡£ºÉĞÎ´ÊäÈë±äÁ¿¡£\n");
+					printf("åé¦ˆï¼šå°šæœªè¾“å…¥å˜é‡ã€‚\n");
 				else
 				{
 					dropFunction();
-					printf("·´À¡: ÒÑ³É¹¦Çå³ıÔ­ÓĞµÄ¸ß½×º¯Êı¡£\n");
+					printf("åé¦ˆ: å·²æˆåŠŸæ¸…é™¤åŸæœ‰çš„é«˜é˜¶å‡½æ•°ã€‚\n");
 					inputA(input_var);
 				}
 			}
@@ -83,7 +83,7 @@ int main()  //Ö÷³ÌĞò
 				{
 					if (input_var[0] == '\0' && input_var[1] == '\0'&&input_var[2] == '\0')
 					{
-						printf("·´À¡£ºÇëÊäÈëÁ½¸ö²ÎÊıÀ´Ñ¡ÔñÇø¼ä·¶Î§¡£\n");
+						printf("åé¦ˆï¼šè¯·è¾“å…¥ä¸¤ä¸ªå‚æ•°æ¥é€‰æ‹©åŒºé—´èŒƒå›´ã€‚\n");
 					}
 					else
 					{
@@ -100,7 +100,7 @@ int main()  //Ö÷³ÌĞò
 				}
 				else
 				{
-					printf("·´À¡£ºÉĞÎ´ÊäÈëÈÎºÎº¯Êı¡£\n");
+					printf("åé¦ˆï¼šå°šæœªè¾“å…¥ä»»ä½•å‡½æ•°ã€‚\n");
 				}
 			}
 			else if (strcmp(keywords, "zeros") == 0)  //finished
@@ -109,7 +109,7 @@ int main()  //Ö÷³ÌĞò
 				{
 					if (input_var[0] == '\0' || input_var[1] == '\0')
 					{
-						printf("·´À¡£ºÇëÊäÈëÁ½¸ö²ÎÊıÀ´Ñ¡ÔñÇø¼ä·¶Î§¡£\n");
+						printf("åé¦ˆï¼šè¯·è¾“å…¥ä¸¤ä¸ªå‚æ•°æ¥é€‰æ‹©åŒºé—´èŒƒå›´ã€‚\n");
 					}
 					else
 					{
@@ -122,20 +122,20 @@ int main()  //Ö÷³ÌĞò
 						jsc = zeros_f(function_input, outZ, gcx, set[0], set[1]);
 						if (jsc == 0)
 						{
-							printf("´Ëº¯ÊıÎŞÁãµã¡£\n");
+							printf("æ­¤å‡½æ•°æ— é›¶ç‚¹ã€‚\n");
 						}
 						else
 						{
 							for (i = 0; i < jsc; i++)
 							{
-								printf("ÁãµãÎª£º(%.2f,0)\n", outZ[i]);
+								printf("é›¶ç‚¹ä¸ºï¼š(%.2f,0)\n", outZ[i]);
 							}
 						}
 					}
 				}
 				else
 				{
-					printf("·´À¡£ºÉĞÎ´ÊäÈëÈÎºÎº¯Êı¡£\n");
+					printf("åé¦ˆï¼šå°šæœªè¾“å…¥ä»»ä½•å‡½æ•°ã€‚\n");
 				}
 			}
 			else if (strcmp(keywords, "diff2") == 0)  //finished
@@ -146,12 +146,12 @@ int main()  //Ö÷³ÌĞò
 					if (d2gcx>2)
 					{
 						d2gcx = diff1(d2fun, d2fun, d2gcx);
-						//printf("¶ş½×µ¼º¯ÊıµÄ½×Êı£º%d\n", d2gcx);
-						//printf("¶ş½×µ¼º¯ÊıF''(x)Îª£º");
+						//printf("äºŒé˜¶å¯¼å‡½æ•°çš„é˜¶æ•°ï¼š%d\n", d2gcx);
+						//printf("äºŒé˜¶å¯¼å‡½æ•°F''(x)ä¸ºï¼š");
 						//showFunction(d2fun, d2gcx);
 							if (input_var[0] == '\0' || input_var[1] == '\0')
 							{
-								printf("·´À¡£ºÇëÊäÈëÁ½¸ö²ÎÊıÀ´Ñ¡ÔñÇø¼ä·¶Î§¡£\n");
+								printf("åé¦ˆï¼šè¯·è¾“å…¥ä¸¤ä¸ªå‚æ•°æ¥é€‰æ‹©åŒºé—´èŒƒå›´ã€‚\n");
 							}
 							else
 							{
@@ -163,36 +163,36 @@ int main()  //Ö÷³ÌĞò
 								jsc = zeros_f(d2fun, outZ, d2gcx, set[0], set[1]);
 								if (jsc==0)
 								{
-									printf("´Ëº¯Êı²»´æÔÚ¹Õµã¡£\n");
+									printf("æ­¤å‡½æ•°ä¸å­˜åœ¨æ‹ç‚¹ã€‚\n");
 								}
 								else
 								{
 									for (i = 0; i < jsc; i++)
 									{
-										printf("º¯Êı¹ÕµãÎª£º%.2f\n", outZ[i]);
+										printf("å‡½æ•°æ‹ç‚¹ä¸ºï¼š%.2f\n", outZ[i]);
 									}
 								}
 							}
 					}
 					else
 					{
-						printf("´Ëº¯Êı²»´æÔÚ¹Õµã¡£\n");
+						printf("æ­¤å‡½æ•°ä¸å­˜åœ¨æ‹ç‚¹ã€‚\n");
 					}
 				}
 				else if(gcx==0)
 				{
-					printf("·´À¡£º´Ëº¯Êı²»´æÔÚ¹Õµã¡£\n");
+					printf("åé¦ˆï¼šæ­¤å‡½æ•°ä¸å­˜åœ¨æ‹ç‚¹ã€‚\n");
 				}
 				else
 				{
-					printf("·´À¡£ºÉĞÎ´ÊäÈëÈÎºÎº¯Êı¡£\n");
+					printf("åé¦ˆï¼šå°šæœªè¾“å…¥ä»»ä½•å‡½æ•°ã€‚\n");
 				}
 			}
 			else if (strcmp(keywords, "mono") == 0)  //finished
 			{
 				if (input_var[0] == '\0' || input_var[1] == '\0')
 				{
-					printf("·´À¡£ºÇëÊäÈëÁ½¸ö²ÎÊıÀ´Ñ¡ÔñÇø¼ä·¶Î§¡£\n");
+					printf("åé¦ˆï¼šè¯·è¾“å…¥ä¸¤ä¸ªå‚æ•°æ¥é€‰æ‹©åŒºé—´èŒƒå›´ã€‚\n");
 				}
 				else
 				{
@@ -206,13 +206,13 @@ int main()  //Ö÷³ÌĞò
 					{
 						char o_mono[50];
 						d2gcx = diff1(function_input, d2fun, gcx);
-						//printf("º¯ÊıµÄ½×Êı£º%d  ", d2gcx);
+						//printf("å‡½æ•°çš„é˜¶æ•°ï¼š%d  ", d2gcx);
 						//showFunction(d2fun,d2gcx);
 						mono(d2fun, d2gcx, set[0], set[1]);
 					}
 					else
 					{
-						printf("·´À¡£ºÉĞÎ´ÊäÈëÈÎºÎº¯Êı¡£\n");
+						printf("åé¦ˆï¼šå°šæœªè¾“å…¥ä»»ä½•å‡½æ•°ã€‚\n");
 					}
 				}
 			}
@@ -220,7 +220,7 @@ int main()  //Ö÷³ÌĞò
 			{
 			if (input_var[0] == '\0' || input_var[1] == '\0')
 			{
-				printf("·´À¡£ºÇëÊäÈëÁ½¸ö²ÎÊıÀ´Ñ¡ÔñÇø¼ä·¶Î§¡£\n");
+				printf("åé¦ˆï¼šè¯·è¾“å…¥ä¸¤ä¸ªå‚æ•°æ¥é€‰æ‹©åŒºé—´èŒƒå›´ã€‚\n");
 			}
 			else
 			{
@@ -233,16 +233,16 @@ int main()  //Ö÷³ÌĞò
 				jsc = maxp(function_input, gcx,outZ , set[0], set[1]);
 				if (jsc <= 0)
 				{
-					printf("±¾º¯Êı²»´æÔÚ×î´óÖµ¡£\n");
+					printf("æœ¬å‡½æ•°ä¸å­˜åœ¨æœ€å¤§å€¼ã€‚\n");
 				}
 				else
 				{
-					printf("±¾º¯ÊıµÄ×î´óÖµÎª£º");
+					printf("æœ¬å‡½æ•°çš„æœ€å¤§å€¼ä¸ºï¼š");
 					for (i = 0; i < jsc; i++)
 					{
 						printf("(%.2f,%.2f)  ", outZ[i], beFunction(function_input, gcx, outZ[i]));
 					}
-					printf("\n×î´óÖµ·Ö±ğÎª£º");
+					printf("\næœ€å¤§å€¼åˆ†åˆ«ä¸ºï¼š");
 					for (i = 0; i < jsc; i++)
 					{
 						printf("%.2f  ", beFunction(function_input, gcx, outZ[i]));
@@ -255,7 +255,7 @@ int main()  //Ö÷³ÌĞò
 			{
 			if (input_var[0] == '\0' || input_var[1] == '\0')
 			{
-				printf("·´À¡£ºÇëÊäÈëÁ½¸ö²ÎÊıÀ´Ñ¡ÔñÇø¼ä·¶Î§¡£\n");
+				printf("åé¦ˆï¼šè¯·è¾“å…¥ä¸¤ä¸ªå‚æ•°æ¥é€‰æ‹©åŒºé—´èŒƒå›´ã€‚\n");
 			}
 			else
 			{
@@ -268,16 +268,16 @@ int main()  //Ö÷³ÌĞò
 				jsc = minp(function_input, gcx, outZ, set[0], set[1]);
 				if (jsc <= 0)
 				{
-					printf("±¾º¯Êı²»´æÔÚ×îĞ¡Öµ¡£\n");
+					printf("æœ¬å‡½æ•°ä¸å­˜åœ¨æœ€å°å€¼ã€‚\n");
 				}
 				else
 				{
-					printf("±¾º¯ÊıµÄ×îĞ¡ÖµµãÎª£º");
+					printf("æœ¬å‡½æ•°çš„æœ€å°å€¼ç‚¹ä¸ºï¼š");
 					for (i = 0; i < jsc; i++)
 					{
 						printf("(%.2f,%.2f)  ", outZ[i], beFunction(function_input, gcx, outZ[i]));
 					}
-					printf("\n×îĞ¡Öµ·Ö±ğÎª£º");
+					printf("\næœ€å°å€¼åˆ†åˆ«ä¸ºï¼š");
 					for (i = 0; i < jsc; i++)
 					{
 						printf("%.2f  ", beFunction(function_input, gcx, outZ[i]));
@@ -290,7 +290,7 @@ int main()  //Ö÷³ÌĞò
 			{
 			if (input_var[0] == '\0' || input_var[1] == '\0')
 			{
-				printf("·´À¡£ºÇëÊäÈëÁ½¸ö²ÎÊıÀ´Ñ¡ÔñÇø¼ä·¶Î§¡£\n");
+				printf("åé¦ˆï¼šè¯·è¾“å…¥ä¸¤ä¸ªå‚æ•°æ¥é€‰æ‹©åŒºé—´èŒƒå›´ã€‚\n");
 			}
 			else
 			{
@@ -307,7 +307,7 @@ int main()  //Ö÷³ÌĞò
 			{
 			if (input_var[0] == '\0' || input_var[1] == '\0')
 			{
-				printf("·´À¡£ºÇëÊäÈëÁ½¸ö²ÎÊıÀ´Ñ¡ÔñÇø¼ä·¶Î§¡£\n");
+				printf("åé¦ˆï¼šè¯·è¾“å…¥ä¸¤ä¸ªå‚æ•°æ¥é€‰æ‹©åŒºé—´èŒƒå›´ã€‚\n");
 			}
 			else
 			{
@@ -325,40 +325,40 @@ int main()  //Ö÷³ÌĞò
 				if (gcx>=0)
 				{
 					dropFunction();
-					printf("·´À¡: ÒÑ³É¹¦Çå³ıÔ­ÓĞµÄ¸ß½×º¯Êı¡£\n");
+					printf("åé¦ˆ: å·²æˆåŠŸæ¸…é™¤åŸæœ‰çš„é«˜é˜¶å‡½æ•°ã€‚\n");
 				}
 				else
 				{
-					printf("·´À¡£ºÉĞÎ´ÊäÈëÈÎºÎº¯Êı¡£\n");
+					printf("åé¦ˆï¼šå°šæœªè¾“å…¥ä»»ä½•å‡½æ•°ã€‚\n");
 				}
 			}
 			else if (strcmp(keywords, "help") == 0)  //finished
 			{
-				printf("³ÌĞò°ïÖú£º\n»ù±¾Óï·¨ÎªÃüÁî¹Ø¼ü´Ê´øÀ¨ºÅ£¬À¨ºÅÀïĞ´ÊäÈë±äÁ¿»ò¿Õ\n");
-				printf("fs=()    ÏÔÊ¾ÒÑÊäÈëµÄº¯Êı\n");
-				printf("inputA()    Í¨¹ıÊäÈë¸ß½×º¯ÊıµÄÏµÊı¹¹½¨¸ß½×º¯Êı£¬ÔÚÀ¨ºÅÄÚÒÔÓ¢ÎÄ¶ººÅ½øĞĞ·Ö¸ô£¬´Ó¸ß´ÎÏîµ½µÍ´ÎÏîË³ĞòÊäÈë\n");
-				printf("plot()    ½«ÒÑ¾­ÊäÈëµÄº¯Êı½øĞĞ»­Í¼²Ù×÷\n");
-				printf("zeros()    ¼ÆËãÒÑÊäÈëº¯ÊıµÄÁãµã²¢ÏÔÊ¾³öÀ´\n");
-				printf("diff2()    ¼ÆËãÒÑÊäÈëº¯ÊıµÄ¹Õµã²¢ÏÔÊ¾³öÀ´\n");
-				printf("mono()    ÅĞ¶ÏÒÑÊäÈëº¯ÊıµÄµ¥µ÷ĞÔÓëµ¥µ÷Çø¼ä\n");
-				printf("maxv()    ¼ÆËãÒÑÊäÈëº¯ÊıµÄ¼«´óÖµ²¢ÏÔÊ¾³öÀ´\n");
-				printf("minv()    ¼ÆËãÒÑÊäÈëº¯ÊıµÄ¼«Ğ¡Öµ²¢ÏÔÊ¾³öÀ´\n");
-				printf("runALL()    ½«ÒÑÊäÈëµÄº¯Êı½øĞĞÍêÕûµÄ·ÖÎö²¢ÇÒÏÔÊ¾³öÀ´\n");
-				printf("report()    Éú³ÉÒÑÊäÈëº¯ÊıµÄ±¨¸æ²¢±£´æÎªTXTÎÄ±¾ÎÄµµ\n");
-				printf("dropF()    É¾³ıÒÑÊäÈëµÄº¯Êı\n");
-				printf("help()    ÏÔÊ¾±¾³ÌĞòµÄ°ïÖúÒ³Ãæ\n");
-				printf("info()    ÏÔÊ¾Èí¼şĞÅÏ¢ÒÔ¼°¿ª·¢ÕßÃûµ¥\n");
-				printf("exit()    ÍË³ö³ÌĞò\n");
+				printf("ç¨‹åºå¸®åŠ©ï¼š\nåŸºæœ¬è¯­æ³•ä¸ºå‘½ä»¤å…³é”®è¯å¸¦æ‹¬å·ï¼Œæ‹¬å·é‡Œå†™è¾“å…¥å˜é‡æˆ–ç©º\n");
+				printf("fs=()    æ˜¾ç¤ºå·²è¾“å…¥çš„å‡½æ•°\n");
+				printf("inputA()    é€šè¿‡è¾“å…¥é«˜é˜¶å‡½æ•°çš„ç³»æ•°æ„å»ºé«˜é˜¶å‡½æ•°ï¼Œåœ¨æ‹¬å·å†…ä»¥è‹±æ–‡é€—å·è¿›è¡Œåˆ†éš”ï¼Œä»é«˜æ¬¡é¡¹åˆ°ä½æ¬¡é¡¹é¡ºåºè¾“å…¥\n");
+				printf("plot()    å°†å·²ç»è¾“å…¥çš„å‡½æ•°è¿›è¡Œç”»å›¾æ“ä½œ\n");
+				printf("zeros()    è®¡ç®—å·²è¾“å…¥å‡½æ•°çš„é›¶ç‚¹å¹¶æ˜¾ç¤ºå‡ºæ¥\n");
+				printf("diff2()    è®¡ç®—å·²è¾“å…¥å‡½æ•°çš„æ‹ç‚¹å¹¶æ˜¾ç¤ºå‡ºæ¥\n");
+				printf("mono()    åˆ¤æ–­å·²è¾“å…¥å‡½æ•°çš„å•è°ƒæ€§ä¸å•è°ƒåŒºé—´\n");
+				printf("maxv()    è®¡ç®—å·²è¾“å…¥å‡½æ•°çš„æå¤§å€¼å¹¶æ˜¾ç¤ºå‡ºæ¥\n");
+				printf("minv()    è®¡ç®—å·²è¾“å…¥å‡½æ•°çš„æå°å€¼å¹¶æ˜¾ç¤ºå‡ºæ¥\n");
+				printf("runALL()    å°†å·²è¾“å…¥çš„å‡½æ•°è¿›è¡Œå®Œæ•´çš„åˆ†æå¹¶ä¸”æ˜¾ç¤ºå‡ºæ¥\n");
+				printf("report()    ç”Ÿæˆå·²è¾“å…¥å‡½æ•°çš„æŠ¥å‘Šå¹¶ä¿å­˜ä¸ºTXTæ–‡æœ¬æ–‡æ¡£\n");
+				printf("dropF()    åˆ é™¤å·²è¾“å…¥çš„å‡½æ•°\n");
+				printf("help()    æ˜¾ç¤ºæœ¬ç¨‹åºçš„å¸®åŠ©é¡µé¢\n");
+				printf("info()    æ˜¾ç¤ºè½¯ä»¶ä¿¡æ¯ä»¥åŠå¼€å‘è€…åå•\n");
+				printf("exit()    é€€å‡ºç¨‹åº\n");
 			}
 			else if (strcmp(keywords, "info") == 0)  //finished
 			{
-				printf("³ÌĞòĞÅÏ¢£º\nÖÆ×÷ÈËÔ±£ºÁºÕÜÃú ÖìÏèÓî ÖÜöªÍş ³ÂÄÁÑÔ ÍõÒ»µÏ\n");
-				printf("ÔºĞ££ºÄÏ¾©¹¤³ÌÑ§Ôº\n");
-				printf("°à¼¶×é±ğ£º»úÆ÷ÈË172µÚ9×é\n");
+				printf("ç¨‹åºä¿¡æ¯ï¼š\nåˆ¶ä½œäººå‘˜ï¼šæ¢å“²é“­ æœ±ç¿”å®‡ å‘¨éœ†å¨ é™ˆç‰§è¨€ ç‹ä¸€è¿ª\n");
+				printf("é™¢æ ¡ï¼šå—äº¬å·¥ç¨‹å­¦é™¢\n");
+				printf("ç­çº§ç»„åˆ«ï¼šæœºå™¨äºº172ç¬¬9ç»„\n");
 			}
 			else
 			{
-				printf("ÊäÈëµÄÃüÁî£º%s\nÎ´ÕÒµ½£¬Çë¼ì²éÄãÊäÈëµÄÃüÁî¡£\n",keywords);
+				printf("è¾“å…¥çš„å‘½ä»¤ï¼š%s\næœªæ‰¾åˆ°ï¼Œè¯·æ£€æŸ¥ä½ è¾“å…¥çš„å‘½ä»¤ã€‚\n",keywords);
 			}
 			v = 0; k = 0;
 			inistr(1);
@@ -366,7 +366,7 @@ int main()  //Ö÷³ÌĞò
 		}
 	}
 	printf("Good Bye!\n");
-	system("pause");
+	//system("pause");  //ç”¨äºwindowsçš„è°ƒè¯•
 }
 
 int diff1(float *array_i, float *array_o,int igcx)
@@ -407,7 +407,7 @@ int zeros_f (float *i_function, float *out_value,int igcx,float m,float n)
 {
 float f1, f2, h,i;
 int s=0;
-//printf("º¯Êı¶¨ÒåÇø¼äÎª:");
+//printf("å‡½æ•°å®šä¹‰åŒºé—´ä¸º:");
 //scanf("%f %f", &m, &n);
 for (i = m; i <= n; i=i+0.01)
 	{
@@ -416,26 +416,26 @@ for (i = m; i <= n; i=i+0.01)
 		f2 = beFunction(i_function, igcx, h);
 		if (f1 == 0)
 		{
-			//printf("f1£º%f\n", f1);
-			//printf("f2£º%f\n", f2);
+			//printf("f1ï¼š%f\n", f1);
+			//printf("f2ï¼š%f\n", f2);
 			//x = i;
-			//printf("Áã1µã£º%f\n", x);
+			//printf("é›¶1ç‚¹ï¼š%f\n", x);
 			out_value[s] = i;
 			s++;
 		}
 		else if (f1 < 0 && f2>0)
 		{
-			//printf("f1£º%f\n", f1);
-			//printf("f2£º%f\n", f2);
-			//printf("Áãµã£º%f\n", x);
+			//printf("f1ï¼š%f\n", f1);
+			//printf("f2ï¼š%f\n", f2);
+			//printf("é›¶ç‚¹ï¼š%f\n", x);
 			out_value[s] = dichotomy(i, h, 0.00005);
 			s++;
 		}
 		else if (f2 < 0 && f1>0)
 		{
-			//printf("f1£º%f\n", f1);
-			//printf("f2£º%f\n", f2);
-			//printf("Áãµã£º%f\n", x);
+			//printf("f1ï¼š%f\n", f1);
+			//printf("f2ï¼š%f\n", f2);
+			//printf("é›¶ç‚¹ï¼š%f\n", x);
 			out_value[s] = dichotomy(i, h, 0.00005);
 			s++;
 		}
@@ -457,9 +457,9 @@ float dichotomy(float low, float high, float er)
 		{
 			low = ans;
 		}
-		//printf("¸ù±ä»¯c=%f\n", ans);
+		//printf("æ ¹å˜åŒ–c=%f\n", ans);
 	}
-	//printf("·½³Ì×îÖÕ¸ùc=%.3f\n", ans);
+	//printf("æ–¹ç¨‹æœ€ç»ˆæ ¹c=%.3f\n", ans);
 	return ans;
 }
 
@@ -473,11 +473,11 @@ int mono(float *i_dfunction, int idgcx,  int low, int high)
 		d0 = beFunction(i_dfunction, idgcx, (low + high) / 2.0);
 		if (d0 > 0)
 		{
-			printf("º¯ÊıÎªµ¥µ÷Ôöº¯Êı¡£");
+			printf("å‡½æ•°ä¸ºå•è°ƒå¢å‡½æ•°ã€‚");
 		}
 		else if (d0 < 0)
 		{
-			printf("º¯ÊıÎªµ¥µ÷¼õº¯Êı¡£");
+			printf("å‡½æ•°ä¸ºå•è°ƒå‡å‡½æ•°ã€‚");
 		}
 	}
 	else
@@ -508,7 +508,7 @@ int maxp(float *orgin_fun,int igcx, float *o_maxp,int low,int high)
 	zjs = zeros_f(dfun, dfun_z, djs, low, high);
 	if (zjs <= 0)
 	{
-		//printf("´Ë1º¯Êı²»´æÔÚ¼«´óÖµ¡£\n");
+		//printf("æ­¤1å‡½æ•°ä¸å­˜åœ¨æå¤§å€¼ã€‚\n");
 		return 0;
 	}
 	else
@@ -519,14 +519,14 @@ int maxp(float *orgin_fun,int igcx, float *o_maxp,int low,int high)
 			yd = beFunction(dfun, djs, (dfun_z[i] + 0.01));
 			if (zd>0 && yd<0)
 			{
-				//printf("º¯ÊıµÄ¼«´óÖµµãÎª£º%.2f\n", dfun_z[i]);
+				//printf("å‡½æ•°çš„æå¤§å€¼ç‚¹ä¸ºï¼š%.2f\n", dfun_z[i]);
 				o_maxp[dzero] = dfun_z[i];
 				dzero++;
 			}
 		}
 		if (dzero==0)
 		{
-			//printf("´Ë2º¯Êı²»´æÔÚ¼«´óÖµ¡£\n");
+			//printf("æ­¤2å‡½æ•°ä¸å­˜åœ¨æå¤§å€¼ã€‚\n");
 			return 0;
 		}
 		else if (dzero > 0)
@@ -544,7 +544,7 @@ int minp(float *orgin_fun, int igcx,float *o_minp, int low, int high)
 	zjs = zeros_f(dfun, dfun_z, djs, low, high);
 	if (zjs <= 0)
 	{
-		//printf("´Ë1º¯Êı²»´æÔÚ¼«Ğ¡Öµ¡£\n");
+		//printf("æ­¤1å‡½æ•°ä¸å­˜åœ¨æå°å€¼ã€‚\n");
 		return 0;
 	}
 	else
@@ -556,14 +556,14 @@ int minp(float *orgin_fun, int igcx,float *o_minp, int low, int high)
 			//printf("zd:%f  yd:%f\n", zd, yd);
 			if (zd < 0 && yd > 0)
 			{
-				//printf("º¯ÊıµÄ¼«Ğ¡ÖµµãÎª£º%.2f\n", dfun_z[i]);
+				//printf("å‡½æ•°çš„æå°å€¼ç‚¹ä¸ºï¼š%.2f\n", dfun_z[i]);
 				o_minp[dzero] = dfun_z[i];
 				dzero++;
 			}
 		}
 		if (dzero == 0)
 		{
-			//printf("´Ë2º¯Êı²»´æÔÚ¼«Ğ¡Öµ¡£\n");
+			//printf("æ­¤2å‡½æ•°ä¸å­˜åœ¨æå°å€¼ã€‚\n");
 			return 0;
 		}
 		else if (dzero > 0)
@@ -579,21 +579,21 @@ int runALL(float *function_input, int igcx, float low, float high)
 	int js1 = 0,i;
 	if (igcx <= 0)
 	{
-		printf("ÉĞÎ´ÊäÈëÈÎºÎ¸ß´Î·½³Ì¡£\n");
+		printf("å°šæœªè¾“å…¥ä»»ä½•é«˜æ¬¡æ–¹ç¨‹ã€‚\n");
 	}
 	else
 	{
-		printf("¸ß´Î·½³ÌÎª£º\n");
+		printf("é«˜æ¬¡æ–¹ç¨‹ä¸ºï¼š\n");
 		showFunction(function_input, igcx);
 		js1 = zeros_f(function_input, storage, igcx, low, high);
-		printf("º¯ÊıÁãµãÎª£º");
+		printf("å‡½æ•°é›¶ç‚¹ä¸ºï¼š");
 		for (i = 0; i < js1; i++)
 		{
 			printf("(%.4f,0)  ", storage[i]);
 		}
 		printf("\n");
 
-		printf("º¯Êı¹ÕµãÎª£º");
+		printf("å‡½æ•°æ‹ç‚¹ä¸ºï¼š");
 		if (igcx > 3)
 		{
 			js1 = diff1(function_input, storage, igcx);
@@ -607,22 +607,22 @@ int runALL(float *function_input, int igcx, float low, float high)
 		}
 		else
 		{
-			printf("²»´æÔÚ¡£\n");
+			printf("ä¸å­˜åœ¨ã€‚\n");
 		}
 
 		js1 = maxp(function_input, gcx, storage, low, high);
 		if (js1 <= 0)
 		{
-			printf("º¯ÊıµÄ¼«´óÖµÎª£º±¾º¯Êı²»´æÔÚ¼«´óÖµ¡£\n");
+			printf("å‡½æ•°çš„æå¤§å€¼ä¸ºï¼šæœ¬å‡½æ•°ä¸å­˜åœ¨æå¤§å€¼ã€‚\n");
 		}
 		else
 		{
-			printf("±¾º¯ÊıµÄ¼«´óÖµÎª£º");
+			printf("æœ¬å‡½æ•°çš„æå¤§å€¼ä¸ºï¼š");
 			for (i = 0; i < js1; i++)
 			{
 				printf("(%f,%f)  ", storage[i], beFunction(function_input, gcx, storage[i]));
 			}
-			printf("\n¼«´óÖµ·Ö±ğÎª£º");
+			printf("\næå¤§å€¼åˆ†åˆ«ä¸ºï¼š");
 			for (i = 0; i < js1; i++)
 			{
 				printf("%f  ", beFunction(function_input, gcx, storage[i]));
@@ -633,16 +633,16 @@ int runALL(float *function_input, int igcx, float low, float high)
 		js1 = minp(function_input, gcx, storage, low, high);
 		if (js1 <= 0)
 		{
-			printf("º¯ÊıµÄ¼«Ğ¡Öµ£º±¾º¯Êı²»´æÔÚ¼«Ğ¡Öµ¡£\n");
+			printf("å‡½æ•°çš„æå°å€¼ï¼šæœ¬å‡½æ•°ä¸å­˜åœ¨æå°å€¼ã€‚\n");
 		}
 		else
 		{
-			printf("º¯ÊıµÄ¼«Ğ¡ÖµµãÎª£º");
+			printf("å‡½æ•°çš„æå°å€¼ç‚¹ä¸ºï¼š");
 			for (i = 0; i < js1; i++)
 			{
 				printf("(%f,%f)  ", storage[i], beFunction(function_input, gcx, storage[i]));
 			}
-			printf("\n¼«Ğ¡Öµ·Ö±ğÎª£º");
+			printf("\næå°å€¼åˆ†åˆ«ä¸ºï¼š");
 			for (i = 0; i < js1; i++)
 			{
 				printf("%f  ", beFunction(function_input, gcx, storage[i]));
@@ -650,7 +650,7 @@ int runALL(float *function_input, int igcx, float low, float high)
 			printf("\n");
 		}
 
-		printf("º¯ÊıµÄµ¥µ÷Çø¼äÎª£º");
+		printf("å‡½æ•°çš„å•è°ƒåŒºé—´ä¸ºï¼š");
 		js1 = diff1(function_input, storage, gcx);
 		mono(storage, js1, low, high);
 	}
@@ -666,26 +666,26 @@ int reporter(float *function_input, int igcx, float low, float high)
 	pFile = fopen(FileName, "a");
 	if (pFile == NULL)
 	{
-		printf("·´À¡£ºÎŞ·¨Êä³öTXTÎÄ¼ş¡£\n");
+		printf("åé¦ˆï¼šæ— æ³•è¾“å‡ºTXTæ–‡ä»¶ã€‚\n");
 		return 0;
 	}
 	if (igcx <= 0)
 	{
-		fprintf(pFile,"ÉĞÎ´ÊäÈëÈÎºÎ¸ß´Î·½³Ì¡£\n");
+		fprintf(pFile,"å°šæœªè¾“å…¥ä»»ä½•é«˜æ¬¡æ–¹ç¨‹ã€‚\n");
 	}
 	else
 	{
-		fprintf(pFile, "¸ß´Î·½³ÌÎª£º\n");
+		fprintf(pFile, "é«˜æ¬¡æ–¹ç¨‹ä¸ºï¼š\n");
 		reportFunction(function_input, igcx,pFile);
 		js1 = zeros_f(function_input, storage, igcx, low, high);
-		fprintf(pFile, "º¯ÊıÁãµãÎª£º");
+		fprintf(pFile, "å‡½æ•°é›¶ç‚¹ä¸ºï¼š");
 		for (i = 0; i < js1; i++)
 		{
 			fprintf(pFile, "(%.4f,0)  ", storage[i]);
 		}
 		fprintf(pFile, "\n");
 
-		fprintf(pFile, "º¯Êı¹ÕµãÎª£º");
+		fprintf(pFile, "å‡½æ•°æ‹ç‚¹ä¸ºï¼š");
 		if (igcx > 3)
 		{
 			js1 = diff1(function_input, storage, igcx);
@@ -699,22 +699,22 @@ int reporter(float *function_input, int igcx, float low, float high)
 		}
 		else
 		{
-			fprintf(pFile, "²»´æÔÚ¡£\n");
+			fprintf(pFile, "ä¸å­˜åœ¨ã€‚\n");
 		}
 
 		js1 = maxp(function_input, gcx, storage, low, high);
 		if (js1 <= 0)
 		{
-			fprintf(pFile, "º¯ÊıµÄ¼«´óÖµ£º±¾º¯Êı²»´æÔÚ¼«´óÖµ¡£\n");
+			fprintf(pFile, "å‡½æ•°çš„æå¤§å€¼ï¼šæœ¬å‡½æ•°ä¸å­˜åœ¨æå¤§å€¼ã€‚\n");
 		}
 		else
 		{
-			fprintf(pFile, "º¯ÊıµÄ×î´óÖµµãÎª£º");
+			fprintf(pFile, "å‡½æ•°çš„æœ€å¤§å€¼ç‚¹ä¸ºï¼š");
 			for (i = 0; i < js1; i++)
 			{
 				fprintf(pFile, "(%f,%f)  ", storage[i], beFunction(function_input, gcx, storage[i]));
 			}
-			fprintf(pFile, "\n×î´óÖµ·Ö±ğÎª£º");
+			fprintf(pFile, "\næœ€å¤§å€¼åˆ†åˆ«ä¸ºï¼š");
 			for (i = 0; i < js1; i++)
 			{
 				fprintf(pFile, "%f  ", beFunction(function_input, gcx, storage[i]));
@@ -725,16 +725,16 @@ int reporter(float *function_input, int igcx, float low, float high)
 		js1 = minp(function_input, gcx, storage, low, high);
 		if (js1 <= 0)
 		{
-			fprintf(pFile, "º¯ÊıµÄ¼«Ğ¡Öµ£º±¾º¯Êı²»´æÔÚ¼«Ğ¡Öµ¡£\n");
+			fprintf(pFile, "å‡½æ•°çš„æå°å€¼ï¼šæœ¬å‡½æ•°ä¸å­˜åœ¨æå°å€¼ã€‚\n");
 		}
 		else
 		{
-			fprintf(pFile, "º¯ÊıµÄ¼«Ğ¡ÖµµãÎª£º");
+			fprintf(pFile, "å‡½æ•°çš„æå°å€¼ç‚¹ä¸ºï¼š");
 			for (i = 0; i < js1; i++)
 			{
 				fprintf(pFile, "(%f,%f)  ", storage[i], beFunction(function_input, gcx, storage[i]));
 			}
-			fprintf(pFile, "\n¼«Ğ¡Öµ·Ö±ğÎª£º");
+			fprintf(pFile, "\næå°å€¼åˆ†åˆ«ä¸ºï¼š");
 			for (i = 0; i < js1; i++)
 			{
 				fprintf(pFile, "%f  ", beFunction(function_input, gcx, storage[i]));
@@ -742,11 +742,11 @@ int reporter(float *function_input, int igcx, float low, float high)
 			fprintf(pFile, "\n");
 		}
 
-		fprintf(pFile, "º¯ÊıµÄµ¥µ÷Çø¼äÎª£º");
+		fprintf(pFile, "å‡½æ•°çš„å•è°ƒåŒºé—´ä¸ºï¼š");
 		js1 = diff1(function_input, storage, gcx);
 		mono_r(storage, js1, low, high,pFile);
 		fprintf(pFile, "\n");
-		printf("·´À¡£º·ÖÎöÎÄ¼şÒÑ³É¹¦±£´æ£¬±£´æÎª¸ùÄ¿Â¼ÏÂµÄResult.txtÎÄ¼şÖĞ¡£\n");
+		printf("åé¦ˆï¼šåˆ†ææ–‡ä»¶å·²æˆåŠŸä¿å­˜ï¼Œä¿å­˜ä¸ºæ ¹ç›®å½•ä¸‹çš„Result.txtæ–‡ä»¶ä¸­ã€‚\n");
 	}
 	fclose(pFile);
 	return 1;
@@ -762,11 +762,11 @@ int mono_r(float *i_dfunction, int idgcx, int low, int high,FILE *o_char)
 		d0 = beFunction(i_dfunction, idgcx, (low + high) / 2.0);
 		if (d0 > 0)
 		{
-			fprintf(o_char,"º¯ÊıÎªµ¥µ÷Ôöº¯Êı¡£");
+			fprintf(o_char,"å‡½æ•°ä¸ºå•è°ƒå¢å‡½æ•°ã€‚");
 		}
 		else if (d0 < 0)
 		{
-			fprintf(o_char, "º¯ÊıÎªµ¥µ÷¼õº¯Êı¡£");
+			fprintf(o_char, "å‡½æ•°ä¸ºå•è°ƒå‡å‡½æ•°ã€‚");
 		}
 	}
 	else
@@ -863,7 +863,7 @@ void inputA(char *array_a)
 		i++;
 	}
 	gcx = i;
-	printf("º¯ÊıµÄÏîÊı£º%d\n", i);
+	printf("å‡½æ•°çš„é¡¹æ•°ï¼š%d\n", i);
 	showFunction(function_input, i);
 }
 
@@ -916,7 +916,7 @@ int plot(float *input_fun, int igcx,float low,float high,float err)
 	pFile = fopen(FileName,"wt");
 	if (pFile == NULL)
 	{
-		printf("·´À¡£ºÎŞ·¨Êä³ödatÎÄ¼ş¡£\n");
+		printf("åé¦ˆï¼šæ— æ³•è¾“å‡ºdatæ–‡ä»¶ã€‚\n");
 		return 0;
 	}
 	for (float i = -50; i < 50; i++)
@@ -924,9 +924,9 @@ int plot(float *input_fun, int igcx,float low,float high,float err)
 		fprintf(pFile,"%.0f %.0f\n", i, beFunction(input_fun, igcx, i));
 	}
 	fclose(pFile);
-	printf("Çë¸´ÖÆ  plot \"plot.dat\" with linespoin ½øĞĞ»­Í¼²Ù×÷\n");
-	printf("Çë×¢Òâ£¬±ØĞë°²×°gnuplotÍ¼ÏñÈí¼ş²Å¿ÉÔËĞĞ£¡·ñÔòÏµÍ³½«±¨´í¡£\n");
-	printf("Èí¼ş¿ÉÊäÈëexitÍË³ö£¡\n");
+	printf("è¯·å¤åˆ¶  plot \"plot.dat\" with linespoin è¿›è¡Œç”»å›¾æ“ä½œ\n");
+	printf("è¯·æ³¨æ„ï¼Œå¿…é¡»å®‰è£…gnuplotå›¾åƒè½¯ä»¶æ‰å¯è¿è¡Œï¼å¦åˆ™ç³»ç»Ÿå°†æŠ¥é”™ã€‚\n");
+	printf("è½¯ä»¶å¯è¾“å…¥exité€€å‡ºï¼\n");
 	system("gnuplot");
 	return 0;
 }
