@@ -7,20 +7,20 @@
 2. 程序将进行画图操作，程序调用的外部程序为gnuplot，使用画图程序时必须先进行gnuplot的环境部署，可以使用sudo apt-get install gnuplot,sudo apt-get install gnuplot-x11进行部署；
 ## 操作输入代码
 min(区间最小值)、max(区间最大值)、errors(误差大小)、num(实数)
-    fs=()    显示已输入的函数
-    inputA(num1,num2,...,numN)    通过输入高阶函数的系数构建高阶函数，在括号内以英文逗号进行分隔，从高次项到低次项顺序输入
-    plot(min,max,errors)    将已经输入的函数进行画图操作
-    zeros(min,max)    计算已输入函数的零点并显示出来
-    diff2(min,max)    计算已输入函数的拐点并显示出来
-    mono(min,max)    判断已输入函数的单调性与单调区间
-    maxv(min,max)    计算已输入函数的极大值并显示出来
-    minv(min,max)    计算已输入函数的极小值并显示出来
-    runALL(min,max)    将已输入的函数进行完整的分析并且显示出来
-    report(min,max)    生成已输入函数的报告并保存为TXT文本文档
-    dropF()    删除已输入的函数
-    help()    显示本程序的帮助页面
-    info()    显示软件信息以及开发者名单
-    exit()    退出程序
+   * fs=(): 显示已输入的函数
+   * inputA(num1,num2,...,numN): 通过输入高阶函数的系数构建高阶函数，在括号内以英文逗号进行分隔，从高次项到低次项顺序输入
+   * plot(min,max,errors): 将已经输入的函数进行画图操作
+   * zeros(min,max): 计算已输入函数的零点并显示出来
+   * diff2(min,max): 计算已输入函数的拐点并显示出来
+   * mono(min,max): 判断已输入函数的单调性与单调区间
+   * maxv(min,max): 计算已输入函数的极大值并显示出来
+   * minv(min,max): 计算已输入函数的极小值并显示出来
+   * runALL(min,max): 将已输入的函数进行完整的分析并且显示出来
+   * report(min,max): 生成已输入函数的报告并保存为TXT文本文档
+   * dropF(): 删除已输入的函数
+   * help(): 显示本程序的帮助页面
+   * info(): 显示软件信息以及开发者名单
+   * exit(): 退出程序
 ## 开发者信息
 梁哲铭 朱翔宇 周霆威 陈牧言 王一迪   院校：南京工程学院
 
